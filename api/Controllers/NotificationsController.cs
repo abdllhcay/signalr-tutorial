@@ -17,10 +17,19 @@ namespace SignalRApi.Controllers
             this.hubContext = hubcontext;
         }
 
-        [HttpPost("all")]
-        public async Task<IActionResult> SendAllClient([FromBody] Notification notification)
+        [HttpPost]
+        public async Task<IActionResult> SendToClient([FromBody] Notification notification)
         {
             await this.hubContext.Clients.Client(notification.ConnectionId)
+                .SendAsync("receivenotification", notification);
+
+            return Ok();
+        }
+
+        [HttpPost("all")]
+        public async Task<IActionResult> SendAllClients([FromBody] Notification notification)
+        {
+            await this.hubContext.Clients.All
                 .SendAsync("receivenotification", notification);
 
             return Ok();
