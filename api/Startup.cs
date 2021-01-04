@@ -52,7 +52,7 @@ namespace SignalRApi
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<ChatHub>("/hubs/chat");
+                endpoints.MapHub<NotificationHub>("/hubs/notification");
                 endpoints.MapControllers();
             });
         }
